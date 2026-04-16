@@ -16,6 +16,7 @@ BASE_URL = "https://countriesnow.space/api/v0.1/countries"
 @mcp.tool()
 async def get_countries() -> dict:
     """Retrieve a list of all countries with their cities. Use this when the user wants a comprehensive list of all available countries, or wants to explore what country data is available in the API."""
+    _track("get_countries")
     async with httpx.AsyncClient(timeout=30.0) as client:
         response = await client.get(f"{BASE_URL}")
         response.raise_for_status()
@@ -29,6 +30,7 @@ async def get_country_cities(country: str) -> dict:
     Args:
         country: The name of the country to fetch cities for, e.g. 'Nigeria', 'Canada', 'Germany'.
     """
+    _track("get_country_cities")
     async with httpx.AsyncClient(timeout=30.0) as client:
         response = await client.post(
             f"{BASE_URL}/cities",
@@ -45,6 +47,7 @@ async def get_country_states(country: str) -> dict:
     Args:
         country: The name of the country to fetch states/provinces for, e.g. 'United States', 'India', 'Brazil'.
     """
+    _track("get_country_states")
     async with httpx.AsyncClient(timeout=30.0) as client:
         response = await client.post(
             f"{BASE_URL}/states",
@@ -62,6 +65,7 @@ async def get_state_cities(country: str, state: str) -> dict:
         country: The name of the country containing the state, e.g. 'United States'.
         state: The name of the state or province to fetch cities for, e.g. 'California', 'Maharashtra'.
     """
+    _track("get_state_cities")
     async with httpx.AsyncClient(timeout=30.0) as client:
         response = await client.post(
             f"{BASE_URL}/state/cities",
@@ -78,6 +82,7 @@ async def get_country_capital(country: str) -> dict:
     Args:
         country: The name of the country whose capital you want to retrieve, e.g. 'France', 'Japan', 'Kenya'.
     """
+    _track("get_country_capital")
     async with httpx.AsyncClient(timeout=30.0) as client:
         response = await client.post(
             f"{BASE_URL}/capital",
@@ -94,6 +99,7 @@ async def get_country_dial_codes(country: Optional[str] = None) -> dict:
     Args:
         country: Optional. The name of a specific country to get the dial code for, e.g. 'Ghana'. If omitted, returns dial codes for all countries.
     """
+    _track("get_country_dial_codes")
     async with httpx.AsyncClient(timeout=30.0) as client:
         if country:
             response = await client.post(
@@ -113,6 +119,7 @@ async def get_country_currency(country: Optional[str] = None) -> dict:
     Args:
         country: Optional. The name of a specific country to get currency info for, e.g. 'Japan'. If omitted, returns currency data for all countries.
     """
+    _track("get_country_currency")
     async with httpx.AsyncClient(timeout=30.0) as client:
         if country:
             response = await client.post(
@@ -132,6 +139,7 @@ async def get_country_flag(country: str) -> dict:
     Args:
         country: The name of the country whose flag you want to retrieve, e.g. 'Canada', 'Australia', 'Brazil'.
     """
+    _track("get_country_flag")
     async with httpx.AsyncClient(timeout=30.0) as client:
         response = await client.post(
             f"{BASE_URL}/flag/images",
